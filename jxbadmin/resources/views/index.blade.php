@@ -6,22 +6,24 @@
     <div class="container mt-4">
         <h1>Daftar Menu Coffee</h1>
         <a class="btn btn-primary" href="/products/create">Create</a>
-        <table class="table" style="width: 60%;">
+        <table class="table" style="width: 70%;">
             <thead>
               <tr>
                 <th scope="col">No</th>
-                <th scope="col">Image</th>
+                <th scope="col">Kategori</th>
                 <th scope="col">Title</th>
                 <th scope="col">Harga</th>
+                <th scope="col">Image</th>
               </tr>
             </thead>
             <tbody>
                 @foreach ($products as $product)
                 <tr>
                   <th scope="row">{{($product->id)}}</th>
-                  <td><img style="width: 100px;" src="{{asset('produk/'. $product->image)}}" alt=""></td>
+                  <td>{{($product->kategori)}}</td>
                   <td>{{($product->title)}}</td>
                   <td>{{($product->price)}}</td>
+                  <td><img style="width: 100px;" src="{{asset('produk/'. $product->image)}}" alt=""></td>
                   <td>
                       <form action="/products/{{$product->id}}" method="POST">
                         @method('DELETE')

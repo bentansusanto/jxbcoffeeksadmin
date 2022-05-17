@@ -9,6 +9,13 @@
         @method('PUT')
         @csrf
         <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Kategori</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="kategori" value="{{$product->kategori}}">
+            @error('kategori')
+            <div class="alert" style="height: 30px; padding-top: 10px; font-size: .9rem; color: red;">{{$message}}</div>
+            @enderror
+          </div>
+        <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Title</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="title" value="{{$product->title}}">
             @error('title')

@@ -36,6 +36,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         // $request->validate([
+        //     'kategori' => 'required',
         //     'title' => 'required',
         //     'price' => 'required|numeric',
         //     'image' => 'required|max:1024',
@@ -51,7 +52,6 @@ class ProductController extends Controller
                 $product->image = $request->file('image')->getClientOriginalName();
                 $product->save();
             }
-
 
         return redirect('/products');
         // return redirect()->route('/products');
@@ -90,6 +90,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'kategori' => 'required',
             'title' => 'required',
             'price' => 'required|numeric',
             'image' => 'required|max:1024',
