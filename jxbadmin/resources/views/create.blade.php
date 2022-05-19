@@ -7,7 +7,7 @@
             @csrf
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Kategori</label>
-                <input type="text" class="form-control @error('title') is-invalid @enderror" id="exampleFormControlInput1" name="kategori" value="{{old('kategori')}}">
+                <input type="text" class="form-control @error('kategori') is-invalid @enderror" id="exampleFormControlInput1" name="kategori" value="{{old('kategori')}}">
                 @error('kategori')
                 <div class="alert" style="height: 30px; padding-top: 10px; font-size: .9rem; color: red;">{{$message}}</div>
                 @enderror
@@ -16,6 +16,13 @@
                 <label for="exampleFormControlInput1" class="form-label">Title</label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="exampleFormControlInput1" name="title" value="{{old('title')}}">
                 @error('title')
+                <div class="alert" style="height: 30px; padding-top: 10px; font-size: .9rem; color: red;">{{$message}}</div>
+                @enderror
+              </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Deskripsi</label>
+                <textarea type="text" class="form-control @error('desc') is-invalid @enderror" id="exampleFormControlInput1" name="desc" value="{{old('title')}}"></textarea>
+                @error('description')
                 <div class="alert" style="height: 30px; padding-top: 10px; font-size: .9rem; color: red;">{{$message}}</div>
                 @enderror
               </div>

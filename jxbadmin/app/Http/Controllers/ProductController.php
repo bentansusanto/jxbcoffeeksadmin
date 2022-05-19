@@ -38,7 +38,8 @@ class ProductController extends Controller
         // $request->validate([
         //     'kategori' => 'required',
         //     'title' => 'required',
-        //     'price' => 'required|numeric',
+        //     'desc' => 'required',
+        //     'price' => 'required',
         //     'image' => 'required|max:1024',
         // ]);
         // return $request->file('image')->store('produk');
@@ -89,10 +90,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        // dd($request->all());
         $request->validate([
             'kategori' => 'required',
             'title' => 'required',
-            'price' => 'required|numeric',
+            'desc' => 'required',
+            'price' => 'required',
             'image' => 'required|max:1024',
         ]);
             $product = Product::find($id);
@@ -102,7 +106,6 @@ class ProductController extends Controller
                 $product->image = $request->file('image')->getClientOriginalName();
                 $product->save();
             }
-
         return redirect('/products');
     }
 

@@ -22,6 +22,13 @@
             <div class="alert" style="height: 30px; padding-top: 10px; font-size: .9rem; color: red;">{{$message}}</div>
             @enderror
           </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Description</label>
+            <textarea type="text" class="form-control" id="exampleFormControlInput1" name="desc" value="{{$product->desc}}"></textarea>
+            @error('desc')
+            <div class="alert" style="height: 30px; padding-top: 10px; font-size: .9rem; color: red;">{{$message}}</div>
+            @enderror
+          </div>
           <div class="input-group mb-3">
             <span class="input-group-text">$</span>
             <input type="text" class="form-control" name="price" value="{{$product->price}}">

@@ -12,6 +12,7 @@
                 <th scope="col">No</th>
                 <th scope="col">Kategori</th>
                 <th scope="col">Title</th>
+                <th scope="col">Deskripsi</th>
                 <th scope="col">Harga</th>
                 <th scope="col">Image</th>
               </tr>
@@ -22,6 +23,7 @@
                   <th scope="row">{{($product->id)}}</th>
                   <td>{{($product->kategori)}}</td>
                   <td>{{($product->title)}}</td>
+                  <td>{{($product->desc)}}</td>
                   <td>{{($product->price)}}</td>
                   <td><img style="width: 100px;" src="{{asset('produk/'. $product->image)}}" alt=""></td>
                   <td>

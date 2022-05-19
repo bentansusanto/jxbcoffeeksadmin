@@ -17,7 +17,8 @@ return new class extends Migration
             $table->increments('id');
             $table->string('kategori');
             $table->string('title');
-            $table->mediumInteger('price');
+            $table->longText('desc');
+            $table->double('price', 8, 2);
             $table->string('image');
             $table->timestamps();
         });
