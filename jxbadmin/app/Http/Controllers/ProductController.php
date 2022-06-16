@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 class ProductController extends Controller
@@ -14,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('index' ,compact(['products']));
+        return view('product.index' ,compact(['products']));
     }
 
     /**
@@ -24,7 +25,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-       return view('create');
+       return view('create',[
+            'categories' => Category::all()
+       ]);
     }
 
     /**
@@ -35,27 +38,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'kategori' => 'required',
-        //     'title' => 'required',
-        //     'desc' => 'required',
-        //     'price' => 'required',
-        //     'image' => 'required|max:1024',
-        // ]);
-        // return $request->file('image')->store('produk');
-        // $upload_image = $request->file('image')->store('produk');
-        // if($request->file('image')){
-        //     $validateData['image'] = $request->file('image')->store('produk');
-        // }
+        $request->validate([
+            'title' => 'required',
+            'category_id' => 'required',
+            'desc' => 'required',
+            'price' => 'required',
+            'image' => 'required|max:1024',
+        ]);
+
         $product = Product::create($request->all());
-            if($request->hasFile('image')){
+        $product->title = ucwords($product->title);
+        if($request->hasFile('image')){
                 $request->file('image')->move('produk', $request->file('image')->getClientOriginalName());
                 $product->image = $request->file('image')->getClientOriginalName();
                 $product->save();
             }
 
-        return redirect('/products');
-        // return redirect()->route('/products');
+        return redirect('/products')->with('Success','Product berhasil ditambahkan');
     }
 
     /**
@@ -64,9 +63,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        return view('product.show', compact('product'));
     }
 
     /**
@@ -75,10 +74,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product = Product::find($id);
-        return view('edit', compact(['product']));
+        return view('product.edit',[
+           'categories' => Category::all()
+        ], compact('product'));
     }
 
     /**
@@ -88,25 +88,25 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-
-        // dd($request->all());
         $request->validate([
-            'kategori' => 'required',
             'title' => 'required',
+            'category_id' => 'required',
             'desc' => 'required',
             'price' => 'required',
             'image' => 'required|max:1024',
         ]);
-            $product = Product::find($id);
-            $product -> update($request->all());
+
+            $product = Product::find($product->id)->update($request->all());
+
+            $product->title = ucwords($product->title);
             if($request->hasFile('image')){
                 $request->file('image')->move('produk', $request->file('image')->getClientOriginalName());
                 $product->image = $request->file('image')->getClientOriginalName();
                 $product->save();
             }
-        return redirect('/products');
+        return redirect('/products')->with('Success','Product berhasil diedit');
     }
 
     /**
@@ -115,10 +115,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        $product = Product::find($id);
-        $product ->delete();
-        return redirect('/products');
+        Product::destroy($product->id);
+        return redirect('/products')->with('Success','Product berhasil dihapus');
     }
 }
