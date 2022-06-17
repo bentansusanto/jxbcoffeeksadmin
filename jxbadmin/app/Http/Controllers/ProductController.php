@@ -14,8 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return view('product.index' ,compact(['products']));
+        $categories = Category::with('products')->get();
+        return view('product.index' ,compact(['categories']));
     }
 
     /**
@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-       return view('create',[
+       return view('product.create',[
             'categories' => Category::all()
        ]);
     }
@@ -47,7 +47,9 @@ class ProductController extends Controller
         ]);
 
         $product = Product::create($request->all());
+
         $product->title = ucwords($product->title);
+
         if($request->hasFile('image')){
                 $request->file('image')->move('produk', $request->file('image')->getClientOriginalName());
                 $product->image = $request->file('image')->getClientOriginalName();
@@ -98,9 +100,12 @@ class ProductController extends Controller
             'image' => 'required|max:1024',
         ]);
 
-            $product = Product::find($product->id)->update($request->all());
+            $product = Product::find($product->id);
+            $product->update($request->all());
 
             $product->title = ucwords($product->title);
+
+            // $product->title = ucwords($product->title);
             if($request->hasFile('image')){
                 $request->file('image')->move('produk', $request->file('image')->getClientOriginalName());
                 $product->image = $request->file('image')->getClientOriginalName();
