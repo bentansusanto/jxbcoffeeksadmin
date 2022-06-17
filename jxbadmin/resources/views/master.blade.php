@@ -20,7 +20,7 @@
             <div class="navbar-nav">
               <a class="nav-link" href="/">Home</a>
               <a class="nav-link" href="/products">Product</a>
-              <a class="nav-link" href="/comment">Comment</a>
+              <a class="nav-link" href="/comments">Comment</a>
               <a class="nav-link">Logout</a>
             </div>
           </div>

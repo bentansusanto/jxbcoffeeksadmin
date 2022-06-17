@@ -65,7 +65,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('category.show',[
+        return view('category.detail',[
             'products' => Product::all()
         ], compact('category'));
     }
