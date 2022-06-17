@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\CommentController;
+use App\Http\Controllers\API\ProductController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +20,17 @@ use App\Http\Controllers\ProductApiController;
 //     return $request->user();
 // });
 
-Route::get('/products', [ProductApiController::class, 'index']);
-Route::get('/products/create', [ProductApiController::class, 'create']);
-Route::post('/products', [ProductApiController::class, 'store']);
-Route::get('/products/{id}/edit', [ProductApiController::class, 'edit']);
-Route::get('/products/{id}', [ProductApiController::class, 'show']);
-Route::put('/products/{id}', [ProductApiController::class, 'update']);
-Route::delete('/products/{id}', [ProductApiController::class, 'destroy']);
-// Route::resource('/products', ProductApiController::class);
+Route::controller(CommentController::class)->group(function(){
+    Route::get('/comments','index');
+    Route::post('/comments','create');
+});
+
+Route::controller(ProductController::class)->group(function(){
+    Route::get('/products','index');
+    Route::get('/products/{product}','show');
+});
+
+Route::controller(CategoryController::class)->group(function(){
+    Route::get('/categories','index');
+    Route::get('/categories/{category}','show');
+});
