@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\RegisterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProductController;
@@ -25,6 +26,17 @@ Route::resource('/categories',CategoryController::class);
 Route::controller(CommentController::class)->group(function(){
     Route::get('/comments','index');
     Route::delete('/comments/{comment}','destroy');
+});
+
+Route::controller(LoginController::class)->group(function(){
+        Route::get('/login','adminLogin');
+        Route::post('/login','login');
+});
+
+Route::controller(RegisterController::class)->group(function(){
+        Route::get('/register','adminRegister');
+        Route::post('/register','register');
+        Route::post('/logout','logout');
 });
 
 // Route::resource('/products', ProductController::class);
