@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\API\ProductController;
@@ -33,4 +34,9 @@ Route::controller(ProductController::class)->group(function(){
 Route::controller(CategoryController::class)->group(function(){
     Route::get('/categories','index');
     Route::get('/categories/{category}','show');
+});
+
+Route::controller(BlogController::class)->group(function(){
+    Route::get('/blogs','index');
+    Route::get('/blogs/{blog}','show');
 });
